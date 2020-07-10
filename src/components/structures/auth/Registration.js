@@ -144,6 +144,7 @@ export default createReactClass({
         }
     },
 
+
     getDefaultPhaseForServerType(type) {
         switch (type) {
             case ServerType.FREE: {
@@ -605,6 +606,8 @@ export default createReactClass({
     },
 
     render: function() {
+            console.log("---serverType----", this.state.serverType)
+
         const AuthHeader = sdk.getComponent('auth.AuthHeader');
         const AuthBody = sdk.getComponent("auth.AuthBody");
         const AccessibleButton = sdk.getComponent('elements.AccessibleButton');

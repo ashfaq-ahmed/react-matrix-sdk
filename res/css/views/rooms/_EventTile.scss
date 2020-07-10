@@ -334,6 +334,16 @@ div.mx_EventTile_notSent.mx_EventTile_redacted .mx_UnknownBody {
 /* De-zalgoing */
 .mx_EventTile_body {
     overflow-y: hidden;
+    padding: 12px 15px;
+    margin-left: 0;
+    background-color: #FFFFFF;
+    text-align: left;
+    padding: 8px 13px;
+    border-radius: 20px 20px 20px 0px;
+    position: relative;
+    max-width: 600px;
+    border: solid 1px #d9d9d9;
+    display: inline-block;
 }
 
 /* Spoiler stuff */

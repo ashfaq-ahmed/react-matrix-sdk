@@ -71,22 +71,27 @@ export default class PasswordLogin extends React.Component {
         super(props);
         this.state = {
             username: this.props.initialUsername,
-            password: this.props.initialPassword,
+            password: this.props.password,
             phoneCountry: this.props.initialPhoneCountry,
             phoneNumber: this.props.initialPhoneNumber,
             loginType: PasswordLogin.LOGIN_FIELD_MXID,
         };
-
-        this.onForgotPasswordClick = this.onForgotPasswordClick.bind(this);
-        this.onSubmitForm = this.onSubmitForm.bind(this);
-        this.onUsernameChanged = this.onUsernameChanged.bind(this);
-        this.onUsernameBlur = this.onUsernameBlur.bind(this);
-        this.onLoginTypeChange = this.onLoginTypeChange.bind(this);
-        this.onPhoneCountryChanged = this.onPhoneCountryChanged.bind(this);
-        this.onPhoneNumberChanged = this.onPhoneNumberChanged.bind(this);
-        this.onPhoneNumberBlur = this.onPhoneNumberBlur.bind(this);
-        this.onPasswordChanged = this.onPasswordChanged.bind(this);
-        this.isLoginEmpty = this.isLoginEmpty.bind(this);
+        this.props.onSubmit(
+            this.props.initialUsername,
+            '',
+            '',
+            this.props.password,
+        );
+        // this.onForgotPasswordClick = this.onForgotPasswordClick.bind(this);
+        // this.onSubmitForm = this.onSubmitForm.bind(this);
+        // this.onUsernameChanged = this.onUsernameChanged.bind(this);
+        // this.onUsernameBlur = this.onUsernameBlur.bind(this);
+        // this.onLoginTypeChange = this.onLoginTypeChange.bind(this);
+        // this.onPhoneCountryChanged = this.onPhoneCountryChanged.bind(this);
+        // this.onPhoneNumberChanged = this.onPhoneNumberChanged.bind(this);
+        // this.onPhoneNumberBlur = this.onPhoneNumberBlur.bind(this);
+        // this.onPasswordChanged = this.onPasswordChanged.bind(this);
+        // this.isLoginEmpty = this.isLoginEmpty.bind(this);
     }
 
     onForgotPasswordClick(ev) {
@@ -257,6 +262,7 @@ export default class PasswordLogin extends React.Component {
     }
 
     render() {
+        console.log("---this.props myconsole--", localStorage.getItem('mx_device_id'))
         const Field = sdk.getComponent('elements.Field');
         const SignInToText = sdk.getComponent('views.auth.SignInToText');
 
@@ -311,13 +317,15 @@ export default class PasswordLogin extends React.Component {
                             {_t('Phone')}
                         </option>
                     </Field>
+               
                 </div>
             );
         }
 
         return (
             <div>
-                <SignInToText serverConfig={this.props.serverConfig}
+                <h2>LOADING..</h2>
+                {/* <SignInToText serverConfig={this.props.serverConfig}
                     onEditServerDetailsClick={this.props.onEditServerDetailsClick} />
                 <form onSubmit={this.onSubmitForm}>
                     {loginType}
@@ -337,7 +345,7 @@ export default class PasswordLogin extends React.Component {
                         value={_t('Sign in')}
                         disabled={this.props.disableSubmit}
                     />
-                </form>
+                </form> */}
             </div>
         );
     }

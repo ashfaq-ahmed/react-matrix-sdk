@@ -394,6 +394,7 @@ export function hydrateSession(credentials) {
  * @returns {Promise} promise which resolves to the new MatrixClient once it has been started
  */
 async function _doSetLoggedIn(credentials, clearStorage) {
+    console.log("----credentials---", credentials)
     credentials.guest = Boolean(credentials.guest);
 
     const softLogout = isSoftLogout();
@@ -479,6 +480,8 @@ function _showStorageEvictedDialog() {
 class AbortLoginAndRebuildStorage extends Error { }
 
 function _persistCredentialsToLocalStorage(credentials) {
+    console.log("i am here")
+
     localStorage.setItem("mx_hs_url", credentials.homeserverUrl);
     if (credentials.identityServerUrl) {
         localStorage.setItem("mx_is_url", credentials.identityServerUrl);
@@ -495,8 +498,7 @@ function _persistCredentialsToLocalStorage(credentials) {
     if (credentials.deviceId) {
         localStorage.setItem("mx_device_id", credentials.deviceId);
     }
-
-    console.log(`Session persisted for ${credentials.userId}`);
+    console.log(`Session persisted for ${(credentials)}`);
 }
 
 let _isLoggingOut = false;

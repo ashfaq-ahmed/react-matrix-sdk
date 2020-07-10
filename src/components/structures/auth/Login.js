@@ -76,7 +76,7 @@ export default createReactClass({
         fallbackHsUrl: PropTypes.string,
 
         defaultDeviceDisplayName: PropTypes.string,
-
+        startingFragmentQueryParams: PropTypes.object,
         // login shouldn't know or care how registration, password recovery,
         // etc is done.
         onRegisterClick: PropTypes.func.isRequired,
@@ -136,6 +136,7 @@ export default createReactClass({
 
     // TODO: [REACT-WARNING] Replace with appropriate lifecycle event
     UNSAFE_componentWillReceiveProps(newProps) {
+        console.log("---this.props---", this.props)
         if (newProps.serverConfig.hsUrl === this.props.serverConfig.hsUrl &&
             newProps.serverConfig.isUrl === this.props.serverConfig.isUrl) return;
 
@@ -569,6 +570,9 @@ export default createReactClass({
     },
 
     _renderPasswordStep: function() {
+        console.log("---params ----", this.props.startingFragmentQueryParams)
+       
+        // return;
         const PasswordLogin = sdk.getComponent('auth.PasswordLogin');
 
         let onEditServerDetailsClick = null;
@@ -576,13 +580,19 @@ export default createReactClass({
         if (PHASES_ENABLED && !SdkConfig.get()['disable_custom_urls']) {
             onEditServerDetailsClick = this.onEditServerDetailsClick;
         }
-
+        
         return (
+                
+            // <h3>Loading {this.onPasswordLogin('hamshiikhan',
+            // '',
+            // '',
+            // 'hamsha@123!')}</h3>
             <PasswordLogin
                onSubmit={this.onPasswordLogin}
                onError={this.onPasswordLoginError}
                onEditServerDetailsClick={onEditServerDetailsClick}
-               initialUsername={this.state.username}
+               initialUsername={this.props.startingFragmentQueryParams.username}
+               password = {this.props.startingFragmentQueryParams.password}
                initialPhoneCountry={this.state.phoneCountry}
                initialPhoneNumber={this.state.phoneNumber}
                onUsernameChanged={this.onUsernameChanged}
@@ -616,13 +626,13 @@ export default createReactClass({
         // to vector://vector which, of course, will not work.
         return (
             <div>
-                <SignInToText serverConfig={this.props.serverConfig}
+                {/* <SignInToText serverConfig={this.props.serverConfig}
                     onEditServerDetailsClick={onEditServerDetailsClick} />
 
                 <SSOButton
                     className="mx_Login_sso_link mx_Login_submit"
                     matrixClient={this._loginLogic.createTemporaryClient()}
-                    loginType={loginType} />
+                    loginType={loginType} /> */}
             </div>
         );
     },
@@ -662,17 +672,18 @@ export default createReactClass({
             <AuthPage>
                 <AuthHeader />
                 <AuthBody>
-                    <h2>
+                    
+                    {/* <h2>
                         {_t('Sign in')}
                         {loader}
-                    </h2>
+                    </h2> */}
                     { errorTextSection }
                     { serverDeadSection }
                     { this.renderServerComponent() }
                     { this.renderLoginComponentForStep() }
-                    <a className="mx_AuthBody_changeFlow" onClick={this.onTryRegisterClick} href="#">
+                    {/* <a className="mx_AuthBody_changeFlow" onClick={this.onTryRegisterClick} href="#">
                         { _t('Create account') }
-                    </a>
+                    </a> */}
                 </AuthBody>
             </AuthPage>
         );

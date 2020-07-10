@@ -133,6 +133,7 @@ export default createReactClass({
 
         // the initial queryParams extracted from the hash-fragment of the URI
         startingFragmentQueryParams: PropTypes.object,
+        test: 'test',
 
         // called when we have completed a token login
         onTokenLoginCompleted: PropTypes.func,
@@ -1562,6 +1563,7 @@ export default createReactClass({
     },
 
     showScreen: function(screen, params) {
+        console.log("----params show screen ----", params)
         if (screen == 'register') {
             dis.dispatch({
                 action: 'start_registration',
@@ -1570,7 +1572,7 @@ export default createReactClass({
         } else if (screen == 'login') {
             dis.dispatch({
                 action: 'start_login',
-                params: params,
+                // params: params,
             });
         } else if (screen == 'forgot_password') {
             dis.dispatch({
@@ -1943,6 +1945,21 @@ export default createReactClass({
     },
 
     render: function() {
+        console.log("-----matrixChat----", this.props)
+        if(this.props.startingFragmentQueryParams) {
+            const {mx_device_id, access_token, mx_user_id,mx_session} = this.props.startingFragmentQueryParams;
+            localStorage.setItem('mx_device_id', mx_device_id)
+            localStorage.setItem('mx_hs_url', 'https://matrix.piyarse.com');
+            localStorage.setItem('mx_access_token', access_token);
+            localStorage.setItem('mx_user_id', mx_user_id);
+            localStorage.setItem('mx_crypto_initialised', true);
+            localStorage.setItem('mx_is_guest', false);
+            localStorage.setItem('mx_session', mx_session);
+            localStorage.setItem('mx_is_url', 'https://vector.im');
+            localStorage.setItem('mxjssdk_memory_filter_FILTER_SYNC_@hamshiikhan:matrix.piyarse.com', 0);
+            localStorage.setItem('mx_last_room_id', '!YPHtZRwcbirJtTZeiO:matrix.piyarse.com')
+            localStorage.setItem('mx_accepts_unsupported_browser', true)
+        }
         // console.log(`Rendering MatrixChat with view ${this.state.view}`);
 
         let view;
@@ -2060,6 +2077,7 @@ export default createReactClass({
                     defaultDeviceDisplayName={this.props.defaultDeviceDisplayName}
                     onForgotPasswordClick={this.onForgotPasswordClick}
                     onServerConfigChange={this.onServerConfigChange}
+                    startingFragmentQueryParams= {this.props.startingFragmentQueryParams}
                     {...this.getServerProperties()}
                 />
             );
