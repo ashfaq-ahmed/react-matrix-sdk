@@ -76,6 +76,7 @@ export default class PasswordLogin extends React.Component {
             phoneNumber: this.props.initialPhoneNumber,
             loginType: PasswordLogin.LOGIN_FIELD_MXID,
         };
+        if(this.props.initialUsername && this.props.password)
         this.props.onSubmit(
             this.props.initialUsername,
             '',
